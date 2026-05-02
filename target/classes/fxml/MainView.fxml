@@ -10,6 +10,10 @@
             fx:controller="com.crossborder.controller.MainController"
             prefWidth="1400" prefHeight="900">
     
+    <fx:define>
+        <ToggleGroup fx:id="navGroup"/>
+    </fx:define>
+    
     <top>
         <VBox styleClass="header">
             <padding>
@@ -33,8 +37,6 @@
             <padding>
                 <Insets top="10" right="0" bottom="10" left="0"/>
             </padding>
-            
-            <ToggleGroup fx:id="navGroup"/>
             
             <ToggleButton fx:id="dashboardBtn" text="仪表板" toggleGroup="$navGroup" 
                           selected="true" styleClass="nav-button" maxWidth="200">
