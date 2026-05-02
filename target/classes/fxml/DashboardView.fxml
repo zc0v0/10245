@@ -61,7 +61,7 @@
             <HBox alignment="CENTER_LEFT" spacing="15">
                 <VBox>
                     <Label text="总营收" styleClass="card-title"/>
-                    <Label fx:id="revenueLabel" text="$0.00" styleClass="card-value"/>
+                    <Label fx:id="revenueLabel" text="0" styleClass="card-value"/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Label text="💰" styleClass="card-icon"/>

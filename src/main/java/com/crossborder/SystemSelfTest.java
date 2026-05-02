@@ -139,8 +139,6 @@ public class SystemSelfTest {
             System.out.println("  ✓ 报表分析 - Excel导出");
             System.out.println();
             
-            DatabaseUtil.closeConnection();
-            
         } catch (Exception e) {
             System.err.println("✗ 自检失败: " + e.getMessage());
             e.printStackTrace();

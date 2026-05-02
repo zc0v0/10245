@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.crossborder.controller.MainController"
-            prefWidth="1400" prefHeight="900">
+            prefWidth="1500" prefHeight="950">
     
     <fx:define>
         <ToggleGroup fx:id="navGroup"/>
@@ -17,83 +17,119 @@
     <top>
         <VBox styleClass="header">
             <padding>
-                <Insets top="15" right="20" bottom="15" left="20"/>
+                <Insets top="12" right="25" bottom="12" left="25"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="跨境电商店群聚合管理系统" styleClass="title">
-                    <font>
-                        <Font size="24"/>
-                    </font>
-                </Label>
+                <VBox>
+                    <Label text="跨境电商店群聚合管理系统" styleClass="title">
+                        <font>
+                            <Font size="22"/>
+                        </font>
+                    </Label>
+                    <Label text="Cross-border E-commerce Aggregation Platform" styleClass="subtitle">
+                        <font>
+                            <Font size="11"/>
+                        </font>
+                    </Label>
+                </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button fx:id="refreshBtn" text="刷新数据" onAction="#handleRefresh" styleClass="primary-button"/>
-                <Button fx:id="syncBtn" text="同步订单" onAction="#handleSyncOrders" styleClass="primary-button"/>
+                <VBox alignment="CENTER_RIGHT" spacing="3">
+                    <Label fx:id="currentTimeLabel" style="-fx-text-fill: #bdc3c7; -fx-font-size: 11;"/>
+                </VBox>
+                <Button fx:id="refreshBtn" text="刷新数据" onAction="#handleRefresh" styleClass="primary-button">
+                    <graphic>
+                        <Label text="🔄"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="syncBtn" text="同步订单" onAction="#handleSyncOrders" styleClass="primary-button">
+                    <graphic>
+                        <Label text="📥"/>
+                    </graphic>
+                </Button>
             </HBox>
         </VBox>
     </top>
     
     <left>
-        <VBox styleClass="sidebar" minWidth="200" maxWidth="200">
+        <VBox styleClass="sidebar" minWidth="260" maxWidth="260" prefWidth="260">
             <padding>
-                <Insets top="10" right="0" bottom="10" left="0"/>
+                <Insets top="8" right="0" bottom="8" left="0"/>
             </padding>
             
-            <ToggleButton fx:id="dashboardBtn" text="仪表板" toggleGroup="$navGroup" 
-                          selected="true" styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="📊" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
+            <VBox styleClass="nav-group" spacing="2">
+                <Label text="核心功能" styleClass="nav-group-title"/>
+                
+                <ToggleButton fx:id="dashboardBtn" text="仪表板" toggleGroup="$navGroup" 
+                              selected="true" styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <Label text="📊" styleClass="nav-icon"/>
+                    </graphic>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="ordersBtn" text="订单管理" toggleGroup="$navGroup"
+                              styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <Label text="📋" styleClass="nav-icon"/>
+                    </graphic>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="productsBtn" text="商品管理" toggleGroup="$navGroup"
+                              styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <Label text="📦" styleClass="nav-icon"/>
+                    </graphic>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="storesBtn" text="店铺管理" toggleGroup="$navGroup"
+                              styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <Label text="🏪" styleClass="nav-icon"/>
+                    </graphic>
+                </ToggleButton>
+            </VBox>
             
-            <ToggleButton fx:id="ordersBtn" text="订单管理" toggleGroup="$navGroup"
-                          styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="📋" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
+            <VBox styleClass="nav-group" spacing="2">
+                <Label text="监控与告警" styleClass="nav-group-title"/>
+                
+                <ToggleButton fx:id="anomalyBtn" text="异常监控" toggleGroup="$navGroup"
+                              styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <Label text="⚠️" styleClass="nav-icon"/>
+                    </graphic>
+                </ToggleButton>
+                
+                <ToggleButton fx:id="alertsBtn" text="告警中心" toggleGroup="$navGroup"
+                              styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <Label text="🔔" styleClass="nav-icon"/>
+                            <Label fx:id="alertBadge" text="" styleClass="badge-label"/>
+                        </HBox>
+                    </graphic>
+                </ToggleButton>
+            </VBox>
             
-            <ToggleButton fx:id="productsBtn" text="商品管理" toggleGroup="$navGroup"
-                          styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="📦" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
-            
-            <ToggleButton fx:id="storesBtn" text="店铺管理" toggleGroup="$navGroup"
-                          styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="🏪" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
-            
-            <ToggleButton fx:id="anomalyBtn" text="异常监控" toggleGroup="$navGroup"
-                          styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="⚠️" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
-            
-            <ToggleButton fx:id="alertsBtn" text="告警中心" toggleGroup="$navGroup"
-                          styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="🔔" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
-            
-            <ToggleButton fx:id="reportsBtn" text="报表分析" toggleGroup="$navGroup"
-                          styleClass="nav-button" maxWidth="200">
-                <graphic>
-                    <Label text="📈" styleClass="nav-icon"/>
-                </graphic>
-            </ToggleButton>
+            <VBox styleClass="nav-group" spacing="2">
+                <Label text="数据分析" styleClass="nav-group-title"/>
+                
+                <ToggleButton fx:id="reportsBtn" text="报表分析" toggleGroup="$navGroup"
+                              styleClass="nav-button" maxWidth="260">
+                    <graphic>
+                        <Label text="📈" styleClass="nav-icon"/>
+                    </graphic>
+                </ToggleButton>
+            </VBox>
             
             <Region VBox.vgrow="ALWAYS"/>
             
-            <VBox styleClass="sidebar-footer" spacing="5">
+            <VBox styleClass="sidebar-footer" spacing="8">
                 <padding>
-                    <Insets top="10" right="15" bottom="10" left="15"/>
+                    <Insets top="15" right="20" bottom="15" left="20"/>
                 </padding>
-                <Label text="系统状态: 运行中" styleClass="status-text"/>
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label text="🟢" style="-fx-font-size: 10;"/>
+                    <Label text="系统状态: 运行中" styleClass="status-text"/>
+                </HBox>
                 <Label fx:id="lastSyncLabel" text="上次同步: --" styleClass="status-text-small"/>
             </VBox>
         </VBox>
@@ -102,7 +138,7 @@
     <center>
         <StackPane fx:id="contentArea" styleClass="content-area">
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets top="15" right="20" bottom="15" left="20"/>
             </padding>
         </StackPane>
     </center>
