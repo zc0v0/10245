@@ -2,6 +2,7 @@ package com.crossborder.dao;
 
 import com.crossborder.entity.Alert;
 import com.crossborder.util.DatabaseUtil;
+import com.crossborder.util.TimestampUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class AlertDao {
             pstmt.setString(6, alert.getRelatedId());
             pstmt.setString(7, alert.getPriority());
             pstmt.setString(8, alert.getStatus());
-            pstmt.setBoolean(9, alert.isRead());
-            pstmt.setObject(10, alert.getAlertTime());
+            pstmt.setInt(9, alert.isRead() ? 1 : 0);
+            pstmt.setString(10, TimestampUtil.formatForSqlite(alert.getAlertTime()));
             
             pstmt.executeUpdate();
             
@@ -87,24 +88,6 @@ public class AlertDao {
         return alerts;
     }
 
-    public List<Alert> findByType(String type) {
-        List<Alert> alerts = new ArrayList<>();
-        String sql = "SELECT * FROM alerts WHERE alert_type = ? ORDER BY alert_time DESC";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, type);
-            ResultSet rs = pstmt.executeQuery();
-            
-            while (rs.next()) {
-                alerts.add(mapResultSetToAlert(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return alerts;
-    }
-
     public void markAsRead(Long id) {
         String sql = "UPDATE alerts SET is_read = 1 WHERE id = ?";
         try (Connection conn = DatabaseUtil.getConnection();
@@ -128,19 +111,6 @@ public class AlertDao {
         }
     }
 
-    public void updateStatus(Long id, String status) {
-        String sql = "UPDATE alerts SET status = ?, processed_time = CURRENT_TIMESTAMP WHERE id = ?";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, status);
-            pstmt.setLong(2, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     private Alert mapResultSetToAlert(ResultSet rs) throws SQLException {
         Alert alert = new Alert();
         alert.setId(rs.getLong("id"));
@@ -154,18 +124,9 @@ public class AlertDao {
         alert.setStatus(rs.getString("status"));
         alert.setRead(rs.getBoolean("is_read"));
         
-        Timestamp alertTime = rs.getTimestamp("alert_time");
-        if (alertTime != null) {
-            alert.setAlertTime(alertTime.toLocalDateTime());
-        }
-        Timestamp processedTime = rs.getTimestamp("processed_time");
-        if (processedTime != null) {
-            alert.setProcessedTime(processedTime.toLocalDateTime());
-        }
-        Timestamp createdAt = rs.getTimestamp("created_at");
-        if (createdAt != null) {
-            alert.setCreatedAt(createdAt.toLocalDateTime());
-        }
+        alert.setAlertTime(TimestampUtil.getLocalDateTime(rs, "alert_time"));
+        alert.setProcessedTime(TimestampUtil.getLocalDateTime(rs, "processed_time"));
+        alert.setCreatedAt(TimestampUtil.getLocalDateTime(rs, "created_at"));
         
         return alert;
     }

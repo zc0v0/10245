@@ -3,6 +3,7 @@ package com.crossborder.dao;
 import com.crossborder.entity.Order;
 import com.crossborder.entity.OrderItem;
 import com.crossborder.util.DatabaseUtil;
+import com.crossborder.util.TimestampUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,8 +30,8 @@ public class OrderDao {
             pstmt.setString(12, order.getStatus());
             pstmt.setString(13, order.getPaymentMethod());
             pstmt.setString(14, order.getCurrency());
-            pstmt.setObject(15, order.getOrderTime());
-            pstmt.setObject(16, order.getPaymentTime());
+            pstmt.setString(15, TimestampUtil.formatForSqlite(order.getOrderTime()));
+            pstmt.setString(16, TimestampUtil.formatForSqlite(order.getPaymentTime()));
             
             pstmt.executeUpdate();
             
@@ -214,22 +215,10 @@ public class OrderDao {
         order.setPaymentMethod(rs.getString("payment_method"));
         order.setCurrency(rs.getString("currency"));
         
-        Timestamp orderTime = rs.getTimestamp("order_time");
-        if (orderTime != null) {
-            order.setOrderTime(orderTime.toLocalDateTime());
-        }
-        Timestamp paymentTime = rs.getTimestamp("payment_time");
-        if (paymentTime != null) {
-            order.setPaymentTime(paymentTime.toLocalDateTime());
-        }
-        Timestamp createdAt = rs.getTimestamp("created_at");
-        if (createdAt != null) {
-            order.setCreatedAt(createdAt.toLocalDateTime());
-        }
-        Timestamp updatedAt = rs.getTimestamp("updated_at");
-        if (updatedAt != null) {
-            order.setUpdatedAt(updatedAt.toLocalDateTime());
-        }
+        order.setOrderTime(TimestampUtil.getLocalDateTime(rs, "order_time"));
+        order.setPaymentTime(TimestampUtil.getLocalDateTime(rs, "payment_time"));
+        order.setCreatedAt(TimestampUtil.getLocalDateTime(rs, "created_at"));
+        order.setUpdatedAt(TimestampUtil.getLocalDateTime(rs, "updated_at"));
         
         return order;
     }

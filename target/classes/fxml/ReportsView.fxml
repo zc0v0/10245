@@ -37,7 +37,7 @@
         
         <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="stat-card">
             <Label text="总销售额" styleClass="stats-label"/>
-            <Label fx:id="totalRevenueLabel" text="$0" styleClass="stats-value" style="-fx-text-fill: #27ae60; -fx-font-size: 24;"/>
+            <Label fx:id="totalRevenueLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #27ae60; -fx-font-size: 24;"/>
         </VBox>
         
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="stat-card">
@@ -47,7 +47,7 @@
         
         <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="stat-card">
             <Label text="平均订单金额" styleClass="stats-label"/>
-            <Label fx:id="avgOrderValueLabel" text="$0" styleClass="stats-value" style="-fx-text-fill: #9b59b6; -fx-font-size: 24;"/>
+            <Label fx:id="avgOrderValueLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #9b59b6; -fx-font-size: 24;"/>
         </VBox>
     </GridPane>
     
