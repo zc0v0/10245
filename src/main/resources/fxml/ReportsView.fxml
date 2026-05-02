@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.crossborder.controller.ReportsController"
+      spacing="15">
+    
+    <Label text="报表分析" styleClass="section-title">
+        <font>
+            <Font size="20"/>
+        </font>
+    </Label>
+    
+    <HBox styleClass="toolbar" spacing="15">
+        <Label text="时间范围:"/>
+        <DatePicker fx:id="startDate"/>
+        <Label text="至"/>
+        <DatePicker fx:id="endDate"/>
+        
+        <Button fx:id="refreshBtn" text="刷新数据" onAction="#handleRefresh" 
+                styleClass="primary-button"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+    
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="33"/>
+            <ColumnConstraints percentWidth="33"/>
+            <ColumnConstraints percentWidth="34"/>
+        </columnConstraints>
+        
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="stat-card">
+            <Label text="总销售额" styleClass="stats-label"/>
+            <Label fx:id="totalRevenueLabel" text="$0" styleClass="stats-value" style="-fx-text-fill: #27ae60; -fx-font-size: 24;"/>
+        </VBox>
+        
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="stat-card">
+            <Label text="订单总数" styleClass="stats-label"/>
+            <Label fx:id="totalOrdersLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #3498db; -fx-font-size: 24;"/>
+        </VBox>
+        
+        <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="stat-card">
+            <Label text="平均订单金额" styleClass="stats-label"/>
+            <Label fx:id="avgOrderValueLabel" text="$0" styleClass="stats-value" style="-fx-text-fill: #9b59b6; -fx-font-size: 24;"/>
+        </VBox>
+    </GridPane>
+    
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+        
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🏪" style="-fx-font-size: 20;"/>
+                <Label text="多店铺营收报表" styleClass="section-title">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="exportRevenueBtn" text="导出Excel" onAction="#handleExportRevenue" 
+                        styleClass="primary-button">
+                    <graphic>
+                        <Label text="📥"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            
+            <TableView fx:id="revenueTable" VBox.vgrow="ALWAYS" prefHeight="250">
+                <columns>
+                    <TableColumn fx:id="storeNameCol" text="店铺名称" prefWidth="150"/>
+                    <TableColumn fx:id="platformCol" text="平台" prefWidth="100"/>
+                    <TableColumn fx:id="orderCountCol" text="订单数" prefWidth="80"/>
+                    <TableColumn fx:id="totalSalesCol" text="总销售额" prefWidth="120"/>
+                    <TableColumn fx:id="avgOrderCol" text="平均订单" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+        
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🔥" style="-fx-font-size: 20;"/>
+                <Label text="热销品分析报表" styleClass="section-title">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="exportHotProductsBtn" text="导出Excel" onAction="#handleExportHotProducts" 
+                        styleClass="primary-button">
+                    <graphic>
+                        <Label text="📥"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            
+            <TableView fx:id="hotProductsTable" VBox.vgrow="ALWAYS" prefHeight="250">
+                <columns>
+                    <TableColumn fx:id="rankCol" text="排名" prefWidth="60"/>
+                    <TableColumn fx:id="productNameCol" text="商品名称" prefWidth="150"/>
+                    <TableColumn fx:id="skuCol" text="SKU" prefWidth="100"/>
+                    <TableColumn fx:id="categoryCol" text="分类" prefWidth="80"/>
+                    <TableColumn fx:id="salesCol" text="销量" prefWidth="80"/>
+                    <TableColumn fx:id="revenueCol" text="销售额" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </GridPane>
+    
+    <HBox styleClass="stats-box" spacing="30" alignment="CENTER_LEFT">
+        <VBox>
+            <Label text="热销商品数" styleClass="stats-label"/>
+            <Label fx:id="hotProductsLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #e67e22;"/>
+        </VBox>
+        <VBox>
+            <Label text="店铺数量" styleClass="stats-label"/>
+            <Label fx:id="storesWithRevenueLabel" text="0" styleClass="stats-value"/>
+        </VBox>
+        <VBox>
+            <Label text="转化率" styleClass="stats-label"/>
+            <Label fx:id="conversionRateLabel" text="0%" styleClass="stats-value" style="-fx-text-fill: #27ae60;"/>
+        </VBox>
+    </HBox>
+    
+</VBox>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.crossborder.controller.AlertsController"
+      spacing="15">
+    
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="告警中心" styleClass="section-title">
+            <font>
+                <Font size="20"/>
+            </font>
+        </Label>
+        <Label fx:id="unreadBadge" text="0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 3 8 3 8; -fx-background-radius: 10; -fx-font-weight: bold;"/>
+    </HBox>
+    
+    <HBox styleClass="toolbar" spacing="15">
+        <Label text="类型:"/>
+        <ComboBox fx:id="typeCombo" styleClass="combo-box" prefWidth="150">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="全部"/>
+                    <String fx:value="库存告警"/>
+                    <String fx:value="物流告警"/>
+                    <String fx:value="退款告警"/>
+                    <String fx:value="系统告警"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        
+        <Label text="状态:"/>
+        <ComboBox fx:id="statusCombo" styleClass="combo-box" prefWidth="120">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="全部"/>
+                    <String fx:value="未读"/>
+                    <String fx:value="已读"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        
+        <Button fx:id="markAllReadBtn" text="全部标记已读" onAction="#handleMarkAllRead" 
+                styleClass="primary-button"/>
+        
+        <Button fx:id="refreshBtn" text="刷新" onAction="#handleRefresh" 
+                styleClass="primary-button"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+    
+    <TableView fx:id="alertsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="priorityCol" text="优先级" prefWidth="100"/>
+            <TableColumn fx:id="typeCol" text="类型" prefWidth="120"/>
+            <TableColumn fx:id="titleCol" text="标题" prefWidth="250"/>
+            <TableColumn fx:id="contentCol" text="内容" prefWidth="400"/>
+            <TableColumn fx:id="statusCol" text="状态" prefWidth="100"/>
+            <TableColumn fx:id="createdAtCol" text="创建时间" prefWidth="180"/>
+            <TableColumn fx:id="actionCol" text="操作" prefWidth="150"/>
+        </columns>
+    </TableView>
+    
+    <HBox styleClass="stats-box" spacing="30" alignment="CENTER_LEFT">
+        <VBox>
+            <Label text="总告警数" styleClass="stats-label"/>
+            <Label fx:id="totalAlertsLabel" text="0" styleClass="stats-value"/>
+        </VBox>
+        <VBox>
+            <Label text="未读告警" styleClass="stats-label"/>
+            <Label fx:id="unreadAlertsLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #e74c3c;"/>
+        </VBox>
+        <VBox>
+            <Label text="高优先级" styleClass="stats-label"/>
+            <Label fx:id="highPriorityLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #e67e22;"/>
+        </VBox>
+    </HBox>
+    
+</VBox>

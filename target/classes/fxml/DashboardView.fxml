@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.crossborder.controller.DashboardController"
+      spacing="20">
+    
+    <Label text="仪表板" styleClass="section-title">
+        <font>
+            <Font size="20"/>
+        </font>
+    </Label>
+    
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        
+        <VBox styleClass="dashboard-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Label text="店铺数量" styleClass="card-title"/>
+                    <Label fx:id="storesCountLabel" text="0" styleClass="card-value"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="🏪" styleClass="card-icon"/>
+            </HBox>
+        </VBox>
+        
+        <VBox styleClass="dashboard-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Label text="订单总数" styleClass="card-title"/>
+                    <Label fx:id="ordersCountLabel" text="0" styleClass="card-value"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="📋" styleClass="card-icon"/>
+            </HBox>
+        </VBox>
+        
+        <VBox styleClass="dashboard-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Label text="商品总数" styleClass="card-title"/>
+                    <Label fx:id="productsCountLabel" text="0" styleClass="card-value"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="📦" styleClass="card-icon"/>
+            </HBox>
+        </VBox>
+        
+        <VBox styleClass="dashboard-card" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Label text="总营收" styleClass="card-title"/>
+                    <Label fx:id="revenueLabel" text="$0.00" styleClass="card-value"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="💰" styleClass="card-icon"/>
+            </HBox>
+        </VBox>
+    </GridPane>
+    
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+        
+        <VBox styleClass="dashboard-card" GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="15">
+            <Label text="订单状态分布" styleClass="section-title">
+                <font>
+                    <Font size="16"/>
+                </font>
+            </Label>
+            
+            <GridPane hgap="20" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33"/>
+                    <ColumnConstraints percentWidth="33"/>
+                    <ColumnConstraints percentWidth="34"/>
+                </columnConstraints>
+                
+                <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label fx:id="pendingOrdersLabel" text="0" styleClass="card-value"/>
+                    <Label text="待处理" styleClass="card-title"/>
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label fx:id="shippedOrdersLabel" text="0" styleClass="card-value"/>
+                    <Label text="已发货" styleClass="card-title"/>
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label fx:id="deliveredOrdersLabel" text="0" styleClass="card-value"/>
+                    <Label text="已完成" styleClass="card-title"/>
+                </VBox>
+            </GridPane>
+        </VBox>
+        
+        <VBox styleClass="dashboard-card" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="15">
+            <Label text="告警信息" styleClass="section-title">
+                <font>
+                    <Font size="16"/>
+                </font>
+            </Label>
+            
+            <GridPane hgap="20" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+                
+                <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label fx:id="unreadAlertsLabel" text="0" styleClass="card-value" style="-fx-text-fill: #e74c3c;"/>
+                    <Label text="未读告警" styleClass="card-title"/>
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label fx:id="pendingAlertsLabel" text="0" styleClass="card-value" style="-fx-text-fill: #e67e22;"/>
+                    <Label text="待处理" styleClass="card-title"/>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </GridPane>
+    
+    <VBox spacing="10">
+        <Label text="快捷操作" styleClass="section-title">
+            <font>
+                <Font size="16"/>
+            </font>
+        </Label>
+        
+        <HBox spacing="15">
+            <Button fx:id="syncBtn" text="同步订单" onAction="#handleSyncOrders" 
+                    styleClass="primary-button" prefWidth="150">
+                <graphic>
+                    <Label text="🔄"/>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="classifyBtn" text="智能分类商品" onAction="#handleClassifyProducts" 
+                    styleClass="primary-button" prefWidth="150">
+                <graphic>
+                    <Label text="🏷️"/>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="detectBtn" text="异常检测" onAction="#handleDetectAnomalies" 
+                    styleClass="primary-button" prefWidth="150">
+                <graphic>
+                    <Label text="🔍"/>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="processRefundBtn" text="处理退款申请" onAction="#handleProcessRefunds" 
+                    styleClass="primary-button" prefWidth="150">
+                <graphic>
+                    <Label text="💰"/>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
+    
+</VBox>

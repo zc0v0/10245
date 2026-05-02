@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.crossborder.controller.OrdersController"
+      spacing="15">
+    
+    <Label text="订单管理" styleClass="section-title">
+        <font>
+            <Font size="20"/>
+        </font>
+    </Label>
+    
+    <HBox styleClass="toolbar" spacing="15">
+        <Label text="搜索:"/>
+        <TextField fx:id="searchField" promptText="订单号 / 买家名称" 
+                   styleClass="search-field" prefWidth="250"/>
+        
+        <Label text="状态:"/>
+        <ComboBox fx:id="statusCombo" styleClass="combo-box" prefWidth="120">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="全部"/>
+                    <String fx:value="PENDING"/>
+                    <String fx:value="PAID"/>
+                    <String fx:value="SHIPPED"/>
+                    <String fx:value="DELIVERED"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        
+        <Label text="平台:"/>
+        <ComboBox fx:id="platformCombo" styleClass="combo-box" prefWidth="120">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="全部"/>
+                    <String fx:value="Amazon"/>
+                    <String fx:value="eBay"/>
+                    <String fx:value="AliExpress"/>
+                    <String fx:value="Shopify"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        
+        <Button fx:id="searchBtn" text="搜索" onAction="#handleSearch" 
+                styleClass="primary-button"/>
+        
+        <Button fx:id="refreshBtn" text="刷新" onAction="#handleRefresh" 
+                styleClass="primary-button"/>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <Button fx:id="syncBtn" text="同步订单" onAction="#handleSyncOrders" 
+                styleClass="primary-button">
+            <graphic>
+                <Label text="🔄"/>
+            </graphic>
+        </Button>
+    </HBox>
+    
+    <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="orderNoCol" text="订单号" prefWidth="180"/>
+            <TableColumn fx:id="platformCol" text="平台" prefWidth="100"/>
+            <TableColumn fx:id="buyerCol" text="买家" prefWidth="120"/>
+            <TableColumn fx:id="amountCol" text="订单金额" prefWidth="100"/>
+            <TableColumn fx:id="shippingCol" text="运费" prefWidth="80"/>
+            <TableColumn fx:id="taxCol" text="税费" prefWidth="80"/>
+            <TableColumn fx:id="statusCol" text="状态" prefWidth="100"/>
+            <TableColumn fx:id="orderTimeCol" text="下单时间" prefWidth="180"/>
+        </columns>
+    </TableView>
+    
+    <HBox styleClass="stats-box" spacing="30" alignment="CENTER_LEFT">
+        <VBox>
+            <Label text="总订单数" styleClass="stats-label"/>
+            <Label fx:id="totalOrdersLabel" text="0" styleClass="stats-value"/>
+        </VBox>
+        <VBox>
+            <Label text="待处理" styleClass="stats-label"/>
+            <Label fx:id="pendingOrdersLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #e67e22;"/>
+        </VBox>
+        <VBox>
+            <Label text="已发货" styleClass="stats-label"/>
+            <Label fx:id="shippedOrdersLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #3498db;"/>
+        </VBox>
+        <VBox>
+            <Label text="已完成" styleClass="stats-label"/>
+            <Label fx:id="deliveredOrdersLabel" text="0" styleClass="stats-value" style="-fx-text-fill: #27ae60;"/>
+        </VBox>
+    </HBox>
+    
+</VBox>
