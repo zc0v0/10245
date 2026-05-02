@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.crossborder.controller.MainController"
+            prefWidth="1400" prefHeight="900">
+    
+    <top>
+        <VBox styleClass="header">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="跨境电商店群聚合管理系统" styleClass="title">
+                    <font>
+                        <Font size="24"/>
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="refreshBtn" text="刷新数据" onAction="#handleRefresh" styleClass="primary-button"/>
+                <Button fx:id="syncBtn" text="同步订单" onAction="#handleSyncOrders" styleClass="primary-button"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <left>
+        <VBox styleClass="sidebar" minWidth="200" maxWidth="200">
+            <padding>
+                <Insets top="10" right="0" bottom="10" left="0"/>
+            </padding>
+            
+            <ToggleGroup fx:id="navGroup"/>
+            
+            <ToggleButton fx:id="dashboardBtn" text="仪表板" toggleGroup="$navGroup" 
+                          selected="true" styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="📊" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <ToggleButton fx:id="ordersBtn" text="订单管理" toggleGroup="$navGroup"
+                          styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="📋" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <ToggleButton fx:id="productsBtn" text="商品管理" toggleGroup="$navGroup"
+                          styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="📦" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <ToggleButton fx:id="storesBtn" text="店铺管理" toggleGroup="$navGroup"
+                          styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="🏪" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <ToggleButton fx:id="anomalyBtn" text="异常监控" toggleGroup="$navGroup"
+                          styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="⚠️" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <ToggleButton fx:id="alertsBtn" text="告警中心" toggleGroup="$navGroup"
+                          styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="🔔" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <ToggleButton fx:id="reportsBtn" text="报表分析" toggleGroup="$navGroup"
+                          styleClass="nav-button" maxWidth="200">
+                <graphic>
+                    <Label text="📈" styleClass="nav-icon"/>
+                </graphic>
+            </ToggleButton>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <VBox styleClass="sidebar-footer" spacing="5">
+                <padding>
+                    <Insets top="10" right="15" bottom="10" left="15"/>
+                </padding>
+                <Label text="系统状态: 运行中" styleClass="status-text"/>
+                <Label fx:id="lastSyncLabel" text="上次同步: --" styleClass="status-text-small"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+        </StackPane>
+    </center>
+    
+</BorderPane>
